@@ -1,0 +1,40 @@
+import java.util.*;
+import java.util.stream.Collectors;
+
+class Student {
+    String name;
+    double marks;
+
+    public Student(String name, double marks) {
+        this.name = name;
+        this.marks = marks;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getMarks() {
+        return marks;
+    }
+}
+
+public class StudentFilter {
+    public static void main(String[] args) {
+        List<Student> students = Arrays.asList(
+            new Student("Mohit", 85.5),
+            new Student("Sumit", 72.0),
+            new Student("Ravi", 78.0),
+            new Student("Raj", 90.2),
+            new Student("Rahul", 65.5)
+        );
+
+        List<String> topStudents = students.stream()
+            .filter(s -> s.getMarks() > 75) 
+            .sorted(Comparator.comparingDouble(Student::getMarks).reversed()) 
+            .map(Student::getName) 
+            .collect(Collectors.toList());
+            
+        System.out.println("Students scoring above 75% (sorted by marks): " + topStudents);
+    }
+}
